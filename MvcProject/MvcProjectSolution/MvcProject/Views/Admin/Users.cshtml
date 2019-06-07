@@ -1,0 +1,82 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="bg0 p-t-23 p-b-140">
+    <div style="width: 1087px;">
+        <div class="p-b-10">
+            <h3 class="ltext-103 cl5">
+                Orders
+            </h3>
+        </div>
+
+        <div>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Email </th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Option</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ var x = 1;}
+                    @foreach (var item in ViewBag.userlist as List<MvcProject.Models.User>)
+                    {
+                        <tr>
+                            <th scope="row">@(x++)</th>
+                            <td>@item.Name</td>
+                            <td>
+
+
+                                @*@Ajax.ActionLink(item.Id.ToString(), "OrderItem", "UserAuthentication", new { id = item.Id },
+                                    new AjaxOptions {
+                                        InsertionMode=InsertionMode.Replace,
+                                        UpdateTargetId= "orderItems"
+                                    })*@
+                                @item.Email
+                            </td>
+                            <td>@item.Gender</td>
+                            <td>@item.Address </td>
+                            <td>
+                                <img style="width:100px; height:100px" src="@Url.Content(item.Image)" />
+                            </td>
+                            <td>
+                                @if (item.Active == true)
+                                {
+                                    @Html.ActionLink("Block", "Block", "Admin", new { id = item.Id }
+
+              , new { @class = "btn btn-danger" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Accept", "AcceptUser", "Admin", new { id = item.Id }
+
+              , new { @class = "btn btn-success" })
+
+                                }
+
+
+
+                            </td>
+
+
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+

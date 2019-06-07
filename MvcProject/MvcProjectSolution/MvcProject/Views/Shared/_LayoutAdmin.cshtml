@@ -1,0 +1,93 @@
+﻿
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <!-- Add custom CSS here -->
+    <link href="~/Content/sb-admin.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <!-- Page Specific CSS -->
+    @*<link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css" />*@
+</head>
+<body>
+    <div class="modal fade bd-Student-modal-lg" id="ModalLogin" tabindex="-1" style="z-index:99999999" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="Content">
+
+            </div>
+        </div>
+    </div>
+    <div>
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a href="/UserAuthentication/Logout" class=" text-left" style="
+        position: absolute;
+    right: 47px;
+    margin-top: 13px;
+    color: white;
+        cursor: pointer;
+    font-size: 17px;
+    ">Logout</a>
+
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/Home/Index">Online Shopping </a>
+
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+                    <ul class="nav navbar-nav side-nav">
+                        <li>
+                            <a> @Html.ActionLink("Orders", "Orders", "Admin")</a>
+                        </li>
+
+
+
+
+                        <li>
+                            <a>  @Html.ActionLink("Users", "Users", "Admin")</a>
+                        </li>
+                        <li>
+                            <a>  @Html.ActionLink("Products", "Index", "Admin")</a>
+                        </li>
+
+
+
+
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right navbar-user"></ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+        </div>
+
+        <div style="margin-left: 250px; margin-top: 70px;">
+            @RenderBody()
+        </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+    </script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

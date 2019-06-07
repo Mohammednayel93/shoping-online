@@ -1,0 +1,76 @@
+﻿@model List<MvcProject.Models.Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="bg0 p-t-23 p-b-140">
+    <div style="width: 1087px;">
+        <div class="p-b-10">
+            <h3 class="ltext-103 cl5">
+                Products
+            </h3>
+        </div>
+        <div>
+            @Ajax.ActionLink("Add New Product", "AddProduct", "Admin",new AjaxOptions
+                      {
+                           OnComplete="OpenModal",
+                          InsertionMode = InsertionMode.Replace,
+                          UpdateTargetId= "Content"
+
+                      }, new { @class = "btn btn-success" })
+        </div>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Option</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{ int x = 1;}
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@(x++) </td>
+                        <td>@item.Name</td>
+                        <td>@item.Description</td>
+                        <td>@item.Price</td>
+                        <td>@item.Category.Name</td>
+                        <td>
+                            <img style="width:100px; height:100px" src="@Url.Content(@item.Image)" />
+                        </td>
+                        <td>
+                            @Ajax.ActionLink("Edit", "EditProduct", "Admin", new { id = item.Id },new AjaxOptions
+                       {
+                            OnComplete="OpenModal",
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId= "Content"
+
+                       }, new { @class = "btn btn-danger" })
+
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+
+    </div>
+</section>
+@section scripts{
+
+    <script>
+        function OpenModal() {
+
+            $('#ModalLogin').modal('show');
+        }
+    </script>
+}

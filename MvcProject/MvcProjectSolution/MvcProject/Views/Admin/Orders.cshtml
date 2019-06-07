@@ -1,0 +1,71 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "Orders";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="bg0 p-t-23 p-b-140">
+    <div style="width: 1087px;">
+        <div class="p-b-10">
+            <h3 class="ltext-103 cl5">
+                Orders
+            </h3>
+        </div>
+
+        <div>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Order Number</th>
+                        <th scope="col">Num Of Items</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Option</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ var x = 1;}
+                    @foreach (var item in ViewBag.orderlist as List<MvcProject.Models.Order>)
+                    {
+                        <tr>
+                            <th scope="row">@(x++)</th>
+                            <td>@item.User.Name</td>
+                            <td>
+
+
+                                @*@Ajax.ActionLink(item.Id.ToString(), "OrderItem", "UserAuthentication", new { id = item.Id },
+                                    new AjaxOptions {
+                                        InsertionMode=InsertionMode.Replace,
+                                        UpdateTargetId= "orderItems"
+                                    })*@
+                                @item.Id
+                            </td>
+                            <td>@item.OrderItems.Count</td>
+                            <td>@item.Date </td>
+
+                            <td>
+                                @Html.ActionLink("Accept", "Accept", "Admin", new { id = item.Id }
+
+                    , new { @class = "btn btn-success" })
+
+
+                                @Html.ActionLink("Reject", "Reject", "Admin", new { id = item.Id }
+
+                    , new { @class = "btn btn-danger" })
+                            </td>
+
+
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+

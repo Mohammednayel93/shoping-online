@@ -1,0 +1,134 @@
+﻿@model MvcProject.Models.User
+@{
+    ViewBag.Title = "Profile";
+    TempData.Keep();
+}
+
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('../../images/bg-01.jpg');">
+    <h2 class="ltext-105 cl0 txt-center">
+        @Model.Name
+    </h2>
+</section>
+<section class="bg0 p-t-75 p-b-120">
+    <div class="container">
+
+        <div class="row">
+            <div class="order-md-2 col-md-7 col-lg-8 p-b-30">
+                <div class="p-t-7 p-l-85 p-l-15-lg p-l-0-md">
+                    <h3 class="mtext-111 cl2 p-b-16">
+                        <span style="color:brown">@Model.Name</span>
+                    </h3>
+
+                    <p class="stext-113 cl6 p-b-26">
+                        @Model.Address
+                    </p>
+
+
+                    <p class="stext-114 cl6 p-r-40 p-b-11">
+                        @Model.Email
+                    </p>
+                    <p class="stext-114 cl6 p-r-40 p-b-11">
+                        @Model.Gender
+                    </p>
+                    <span class="stext-111 cl8">
+                        <input id="Submit1" type="submit" onclick="return openEditUserModal()" class="btn btn-danger" value="Edit " /> &nbsp;  &nbsp;
+                        <input id="Submit1" type="submit" onclick="return openChangePasswordModal()" class="btn btn-success" value="Change Password " />
+                    </span>
+
+                </div>
+            </div>
+
+            <div class="order-md-1 col-11 col-md-5 col-lg-4 m-lr-auto p-b-30">
+                <div class="how-bor2">
+                    <div class="hov-img0">
+                        <img src="@Url.Content( Model.Image)" alt="IMG">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <div class="text-center">
+        <h2>Order List</h2>
+    </div>
+</div>
+<br />
+<br />
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Order Number</th>
+            <th scope="col">Num Of Items</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ var x = 1;}
+        @foreach (var item in ViewBag.orderlist as List<MvcProject.Models.Order>)
+        {
+            <tr>
+                <th scope="row">@(x++)</th>
+                <td>@item.User.Name</td>
+                <td>
+
+
+                    @Ajax.ActionLink(item.Id.ToString(), "OrderItem", "UserAuthentication", new { id = item.Id },
+                   new AjaxOptions {
+                       InsertionMode=InsertionMode.Replace,
+                       UpdateTargetId= "orderItems"
+                   })
+
+                </td>
+                <td>@item.OrderItems.Count</td>
+                <td>@item.Date </td>
+                @{
+                    if (item.Active == null)
+                    {
+                        <td>Waiting Admin Response</td>
+                    }
+                    else if (item.Active == true)
+                    {
+                        <td>Accepted</td>
+
+                    }
+                    else
+                    {
+                        <td>Rejected</td>
+                    }
+                }
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+<br />
+<div id="orderItems"></div>
+
+@section scripts{
+    <script>
+    $(function () {
+
+        if ('@ViewBag.editUser' != '') {
+            toastr.success('@ViewBag.editUser', 'Done');
+        }
+        else if ('@ViewBag.changePassword' == 'Invaild Password') {
+            openChangePasswordModal();
+            toastr.error('@ViewBag.changePassword', 'Ops');
+        }
+            else if ('@ViewBag.changePassword' == 'Password Changed Successfully') {
+                 toastr.success('@ViewBag.changePassword', 'Done');
+            }
+
+        //else {
+        //     toastr.success('Login Successfully','Done');
+        //}
+    })
+    </script>
+
+}

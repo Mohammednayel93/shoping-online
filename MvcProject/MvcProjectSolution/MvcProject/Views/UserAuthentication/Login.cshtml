@@ -1,0 +1,43 @@
+﻿@model MvcProject.Models.User
+
+@{
+
+    TempData.Keep();
+}
+
+
+
+
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalCenterTitle">Login</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form method="post" action="/UserAuthentication/Login">
+    <input type="hidden" value="@TempData["LoginError"]" />
+    <div class="modal-body">
+
+        <div class="md-form  ">
+            <label data-error="wrong" data-success="right" for="defaultForm-email">Email</label>
+            @*<input type="text" id="txt_Fname_s" class="form-control validate  ">*@
+            @Html.TextBoxFor(z => z.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(z => z.Email)
+
+        </div>
+        <div class="md-form  ">
+            <label data-error="wrong" data-success="right" for="defaultForm-email">Password</label>
+            @*<input type="text" id="txt_Lname_s" class="form-control validate  ">*@
+            @Html.PasswordFor(z => z.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(z => z.Password)
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        @*<button class="btn btn-default" id="btn_save_student">Add</button>*@
+        <input id="Submit1" class="btn btn-default" type="submit" value="submit" />
+    </div>
+</form>
+
+@Scripts.Render("~/bundles/jqueryval")
